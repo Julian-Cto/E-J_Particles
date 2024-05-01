@@ -69,7 +69,6 @@ namespace Matrices
     ///Separate columns by ' ' and rows by '\n'
     ostream& operator<<(ostream& os, const Matrix& a) {
         for (int i = 0; i < a.getRows(); i++) {
-            os << endl;
             for (int j = 0; j < a.getCols(); j++) {
                 os << setw(10) << a(i, j) << ' ';
             }
@@ -91,7 +90,7 @@ namespace Matrices
     RotationMatrix::RotationMatrix(double theta)
         : Matrix(2, 2)
     {
-
+        a = { {cos(theta), -sin(theta)},{sin(theta), cos(theta)} };
     }
     ///Call the parent constructor to create a 2x2 matrix
                ///Then assign each element as follows:
@@ -103,7 +102,7 @@ namespace Matrices
     ScalingMatrix::ScalingMatrix(double scale)
         : Matrix(2, 2)
     {
-
+        a = { {scale, 0},{0, scale} };
     }
     ///Call the parent constructor to create a 2xn matrix
                 ///Then assign each element as follows:
@@ -117,6 +116,19 @@ namespace Matrices
     TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols)
         : Matrix(2, nCols)
     {
-
+        for (int row = 0; row < 2; row++)
+        {
+            for (int col = 0; col < nCols; col++)
+            {
+                if (row == 0)
+                {
+                    a[row][col] = xShift;
+                }
+                else
+                {
+                    a[row][col] = yShift;
+                }
+            }
+        }
     }
 }
