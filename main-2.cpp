@@ -2,6 +2,7 @@
 
 int main()
 {
+	cout << "main";
 	// Declare an instance of Engine
 	Engine engine;
 	// Start the engine

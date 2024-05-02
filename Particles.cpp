@@ -27,7 +27,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 }	
 void Particle::draw(RenderTarget& target, RenderStates states) const
 {
-	VertexArray lines(TriangleFan, m_numPoints + 1);
+	/*VertexArray lines(TriangleFan, m_numPoints + 1);
 	Vector2f center;
 	Vector2i(center) = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);
 	lines[0].position = center;
@@ -38,6 +38,7 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 		lines[j].color = m_color2;
 	}
 	target.draw(lines);
+	*/
 }
 void Particle::update(float dt)
 {
@@ -53,19 +54,30 @@ void Particle::update(float dt)
  ///construct a RotationMatrix R, left mulitply it to m_A
 void Particle::rotate(double theta)
 {
-
+	Vector2f temp = m_centerCoordinate;
+	translate(-m_centerCoordinate.x, -m_centerCoordinate.y);
+	RotationMatrix R(theta);
+	m_A = R * m_A;
+	translate(temp.x, temp.y);
 }
 
 ///Scale the size of the Particle by factor c
 ///construct a ScalingMatrix S, left multiply it to m_A
 void Particle::scale(double c)
 {
-
+	Vector2f temp = m_centerCoordinate;
+	translate(-m_centerCoordinate.x, -m_centerCoordinate.y);
+	ScalingMatrix S(c);
+	m_A = S * m_A;
+	translate(temp.x, temp.y);
 }
 
 ///shift the Particle by (xShift, yShift) coordinates
 ///construct a TranslationMatrix T, add it to m_A
 void Particle::translate(double xShift, double yShift)
 {
-
+	TranslationMatrix T(xShift, yShift, m_A.getCols());
+	m_A = T + m_A;
+	m_centerCoordinate.x += xShift;
+	m_centerCoordinate.y += yShift;
 }
