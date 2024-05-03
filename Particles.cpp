@@ -34,7 +34,7 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 	lines[0].color = m_color1;
 	for (int j = 1; j <= m_numPoints; j++)
 	{
-		lines[j].position = Vector2f(target.mapCoordsToPixel({ m_A(0, j - 1), m_A(1, j - 1) }, m_cartesianPlane));
+		lines[j].position = Vector2f(target.mapCoordsToPixel({ m_A(0, j - 1), m_A(1, j - 1)}, m_cartesianPlane));
 		lines[j].color = m_color2;
 	}
 	target.draw(lines, states);
@@ -77,6 +77,6 @@ void Particle::translate(double xShift, double yShift)
 {
 	TranslationMatrix T(xShift, yShift, m_A.getCols());
 	m_A = T + m_A;
-	m_centerCoordinate.x += xShift;
-	m_centerCoordinate.y += yShift;
+	m_centerCoordinate.x += (float)xShift;
+	m_centerCoordinate.y += (float)yShift;
 }

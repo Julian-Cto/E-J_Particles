@@ -43,6 +43,7 @@ void Engine::input()
                 {
                     int randNumPoints = rand() % (50 - 25 + 1) + 25;
                     Particle particle(m_Window, randNumPoints, mousePixel);
+                    //m_particles.push_back(particle);
                 }
             }
         }
@@ -64,7 +65,7 @@ void Engine::update(float dtAsSeconds)
         }
         else
         {
-            m_particles.erase(iter);
+            iter = m_particles.erase(iter);
         }
     }
 }
