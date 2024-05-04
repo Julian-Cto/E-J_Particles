@@ -116,19 +116,10 @@ namespace Matrices
     TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols)
         : Matrix(2, nCols)
     {
-        for (int row = 0; row < 2; row++)
+        for (int col = 0; col < nCols; col++) 
         {
-            for (int col = 0; col < nCols; col++)
-            {
-                if (row == 0)
-                {
-                    a[row][col] = xShift;
-                }
-                else
-                {
-                    a[row][col] = yShift;
-                }
-            }
+            a[0][col] = xShift; // xShift for first row
+            a[1][col] = yShift; // yShift for second row
         }
     }
 }
