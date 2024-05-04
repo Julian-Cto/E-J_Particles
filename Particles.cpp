@@ -24,7 +24,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 		m_A(1, j) = m_centerCoordinate.y + dy;
 		theta += dTheta;
 	}
-}	
+}
 void Particle::draw(RenderTarget& target, RenderStates states) const
 {
 	VertexArray lines(TriangleFan, m_numPoints + 1);
@@ -34,7 +34,7 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 	lines[0].color = m_color1;
 	for (int j = 1; j <= m_numPoints; j++)
 	{
-		lines[j].position = Vector2f(target.mapCoordsToPixel({ m_A(0, j - 1), m_A(1, j - 1)}, m_cartesianPlane));
+		lines[j].position = static_cast<Vector2f>(target.mapCoordsToPixel({ (float)m_A(0, j - 1), (float)m_A(1, j - 1) }, m_cartesianPlane));
 		lines[j].color = m_color2;
 	}
 	target.draw(lines, states);
@@ -47,7 +47,7 @@ void Particle::update(float dt)
 	float dx = m_vx * dt;
 	m_vy -= G * dt;
 	float dy = m_vy * dt;
-	translate(dx, dy);
+	translate((double)dx, (double)dy);
 }
 ///rotate Particle by theta radians counter-clockwise
  ///construct a RotationMatrix R, left mulitply it to m_A
