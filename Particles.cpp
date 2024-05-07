@@ -48,6 +48,13 @@ void Particle::update(float dt)
 	float dx = m_vx * dt;
 	m_vy -= G * dt;
 	float dy = m_vy * dt;
+
+	// bounce off bottom
+	if (m_centerCoordinate.y + dy <= m_cartesianPlane.getSize().y / 2) {
+		m_vy *= -1; 
+		m_vy *= 0.83; 
+	}
+	
 	translate((double)dx, (double)dy);
 }
 ///rotate Particle by theta radians counter-clockwise
